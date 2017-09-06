@@ -1,0 +1,30 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.data.volumeName }}
+  labels:
+    release: {{ template "fullname" . }}
+spec:
+  capacity:
+    storage: {{ .Values.data.volumeSize }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  gcePersistentDisk:
+    fsType: "ext4"
+    pdName: {{ .Values.data.gcePersistentDiskName }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.data.volumeName }}-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.data.volumeSize }}
+  storageClassName: ""
+  selector:
+    matchLabels:
+      release: {{ template "fullname" . }}
