@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
-        command: ["/bin/sh","-c", "{{ .Values.image.command }}"]
+        command: ["/bin/sh","-c", {{ .Values.image.command }}]
         volumeMounts:
         - mountPath: /root
           name: {{ .Values.data.volumeName }}

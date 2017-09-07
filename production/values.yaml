@@ -6,7 +6,7 @@ image:
   repository: ethereum/client-go
   tag: latest
   pullPolicy: Always
-  command: 'geth --testnet --fast --cache=512 --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0"'
+  command: "geth --testnet --fast --cache=512 --rpc"
 service:
   name: nginx
   type: NodePort
