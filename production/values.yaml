@@ -1,12 +1,9 @@
-# Default values for geth-chart.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 replicaCount: 1
 image:
   repository: ethereum/client-go
   tag: latest
   pullPolicy: Always
-  command: "geth --testnet --fast --cache=512 --rpc"
+  command: 'geth --fast --cache=1024 --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0"'
 service:
   name: nginx
   type: NodePort

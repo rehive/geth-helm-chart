@@ -26,6 +26,11 @@ spec:
         persistentVolumeClaim:
           claimName: {{ .Values.data.volumeName }}-claim
       {{- if .Values.nodeSelector }}
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "geth"
+          effect: "NoSchedule"
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
       {{- end }}
