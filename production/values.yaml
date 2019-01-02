@@ -3,24 +3,14 @@ data:
   volumeName: geth-data
   volumeSize: 500Gi
 image:
-  cloud.google.com/gke-nodepool: geth-pool
   command: geth --syncmode "fast" --cache=1024 --rpc --rpccorsdomain "*" --rpcaddr
     "0.0.0.0"
-  nodeSelector: null
   pullPolicy: Always
   repository: ethereum/client-go
   tag: latest
+nodeSelector:
+  cloud.google.com/gke-nodepool: geth-pool
 replicaCount: 1
-service:
-  externalPort: 8545
-  internalPort: 8545
-  name: nginx
-  type: NodePort
-tolerations:
-- effect: NoSchedule
-  key: dedicated
-  operator: Equal
-  value: geth
 resources:
   limits:
     cpu: 770m
@@ -28,3 +18,8 @@ resources:
   requests:
     cpu: 540m
     memory: 2.7Gi
+service:
+  externalPort: 8545
+  internalPort: 8545
+  name: nginx
+  type: NodePort
