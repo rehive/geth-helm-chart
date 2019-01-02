@@ -11,15 +11,15 @@ image:
 nodeSelector:
   cloud.google.com/gke-nodepool: geth-pool
 replicaCount: 1
-resources:
-  limits:
-    cpu: 770m
-    memory: 3.9Gi
-  requests:
-    cpu: 540m
-    memory: 2.7Gi
 service:
   externalPort: 8545
   internalPort: 8545
   name: nginx
   type: NodePort
+resources:
+  limits:
+    cpu: 770m
+    memory: 4.5Gi
+  requests:
+    cpu: 540m
+    memory: 2.7Gi
