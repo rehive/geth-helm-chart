@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
@@ -18,6 +18,8 @@ spec:
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         command: ["/bin/sh","-c", {{ .Values.image.command }}]
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - mountPath: /root
           name: {{ .Values.data.volumeName }}

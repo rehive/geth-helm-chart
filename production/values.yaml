@@ -1,16 +1,25 @@
-replicaCount: 1
-image:
-  repository: ethereum/client-go
-  tag: latest
-  pullPolicy: Always
-  command: 'geth --fast --cache=1024 --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0"'
-service:
-  name: nginx
-  type: NodePort
-  externalPort: 8545
-  internalPort: 8545
 data:
-  volumeSize: 200Gi
   gcePersistentDiskName: geth-data
   volumeName: geth-data
-nodeSelector: {cloud.google.com/gke-nodepool: geth-pool}
+  volumeSize: 500Gi
+image:
+  command: geth --syncmode "fast" --cache=1024 --rpc --rpccorsdomain "*" --rpcaddr
+    "0.0.0.0"
+  pullPolicy: Always
+  repository: ethereum/client-go
+  tag: latest
+nodeSelector:
+  cloud.google.com/gke-nodepool: geth-pool
+replicaCount: 1
+service:
+  externalPort: 8545
+  internalPort: 8545
+  name: nginx
+  type: NodePort
+resources:
+  limits:
+    cpu: 770m
+    memory: 4.5Gi
+  requests:
+    cpu: 540m
+    memory: 2.7Gi
